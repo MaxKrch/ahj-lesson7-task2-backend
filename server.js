@@ -2,17 +2,16 @@ const http = require('http');
 
 const Koa = require('koa');
 const { koaBody } = require('koa-body');
-const koaStatic = require('koa-static'); //возможно, перенести
+const koaStatic = require('koa-static'); 
 const cors = require('@koa/cors');
 const path = require('path'); 
 const fs = require('fs');;
 
-const { getExt, saveToDisc, removeFromDisc } = require('./api/images.js');
-const { getListImages, addImgToList,	upgImgToList,	delImgFromList } = require('./api/database.js');
+const { getExt, saveToDisc, removeFromDisc } = require('./src/api/images.js');
+const { getListImages, addImgToList,	upgImgToList,	delImgFromList } = require('./src/api/database.js');
 
 const app = new Koa();
 const public = path.join(__dirname, '/public');
-
 
 
 app.use(koaBody({
@@ -120,9 +119,7 @@ const upgImg = async (id, name) => {
 const delImg = async (id) => {
 	const link = await delImgFromList(id);
 	
-	if (!await removeFromDisc(link)) {
-		return false;
-	}
+	await removeFromDisc(link)
 
 	return id;
 }
