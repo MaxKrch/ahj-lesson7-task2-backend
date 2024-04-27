@@ -20,8 +20,8 @@ app.use(koaBody({
 	multipart: true,
 	json: true,
 }))
-	.use(koaStatic(public))
 	.use(cors())
+	.use(koaStatic(public))
 	.use(async ctx => {
 		try {
 			const resp = await processingRequest(ctx.request.querystring, ctx.request.body, ctx.request.files)
