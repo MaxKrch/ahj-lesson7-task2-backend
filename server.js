@@ -85,7 +85,7 @@ const processingRequest = async (query, body, files = null) => {
 				}
 				break;
 
-			case '':
+			case 'saveImg':
 				res.data = await saveImg(files.file);
 				if(res.data) {
 					res.success = true;
@@ -111,8 +111,11 @@ const processingRequest = async (query, body, files = null) => {
 				break;
 
 			default:
-				res.success = true;
-				res.body = "Ошибка в запросе"
+							res.data = await saveImg(files.file);
+				if(res.data) {
+					res.success = true;
+				}
+				break;
 		}
 		
 	} catch (err) {
