@@ -58,7 +58,6 @@ const delImgFromList = async (id) => {
 	
 	images.splice(indexImg, 1);
 	writeListImgs(images)
-
 	return link;
 }
 

@@ -13,15 +13,14 @@ const { getListImages, addImgToList,	upgImgToList,	delImgFromList } = require('.
 const app = new Koa();
 const public = path.join(__dirname, '/public');
 
-
 app.use(koaBody({
 	text: true,
 	urlencoded: true,
 	multipart: true,
 	json: true,
 }))
-	.use(cors())
 	.use(koaStatic(public))
+	.use(cors())
 	.use(async ctx => {
 		try {
 			const resp = await processingRequest(ctx.request.querystring, ctx.request.body, ctx.request.files)
