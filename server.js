@@ -11,7 +11,7 @@ const { getExt, saveToDisc, removeFromDisc } = require('./src/api/images.js');
 const { getListImages, addImgToList,	upgImgToList,	delImgFromList } = require('./src/api/database.js');
 
 const app = new Koa();
-const public = path.join(__dirname, '/public');
+const public = path.join(__dirname, '/public/img');
 
 app.use(koaBody({
 	text: true,
@@ -20,7 +20,10 @@ app.use(koaBody({
 	json: true,
 }))
 	.use(koaStatic(public))
-	.use(cors())
+	.use(cors({
+    origin: "*",
+   }
+  ))
 	.use(async ctx => {
 		try {
 			const resp = await processingRequest(ctx.request.querystring, ctx.request.body, ctx.request.files)
@@ -55,7 +58,7 @@ const processingRequest = async (query, body, files = null) => {
 				break;
 
 			case 'saveImg':
-				res.data = await saveImg(body.name, files.file);
+				res.data = await saveImg(files.file, body.name);
 				if(res.data) {
 					res.success = true;
 				}
@@ -94,9 +97,9 @@ const showError = (error) => {
 	console.log(`Что-то пошло не так: ${error}`)
 }
 
-const saveImg = async (name, img) => {
+const saveImg = async (img) => {
+
 	const newImg = await saveToDisc(img);
-	newImg.name = name;
 
 	if(!await addImgToList(newImg)) {
 		return false;

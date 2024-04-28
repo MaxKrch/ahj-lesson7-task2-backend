@@ -22,6 +22,7 @@ const saveToDisc = async (img) => {
 		const oldPath = img.filepath;
 		const id = uuid.v4();
 		const ext = getExt(img.mimetype);
+		const name = img.originalFilename;
 		
 		const newName = `${id}.${ext}` 
 		const newPath = path.join(public, newName);
@@ -35,7 +36,7 @@ const saveToDisc = async (img) => {
 
 		readStream.on('close', async () => {
    		await fs.promises.unlink(oldPath);
-   		resolve({id, link, ext});
+   		resolve({id, link, ext, name});
   	});
 		readStream.pipe(writeStream);
 	})
