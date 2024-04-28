@@ -11,7 +11,7 @@ const { getExt, saveToDisc, removeFromDisc } = require('./src/api/images.js');
 const { getListImages, addImgToList,	upgImgToList,	delImgFromList } = require('./src/api/database.js');
 
 const app = new Koa();
-const public = path.join(__dirname, '/src/public/img');
+const public = path.join(__dirname, 'src/public/img');
 
 app.use(koaBody({
 	text: true,
