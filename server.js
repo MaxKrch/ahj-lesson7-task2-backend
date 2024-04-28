@@ -75,7 +75,7 @@ const processingRequest = async (query, body, files = null) => {
 	const actString = queryArray[0];
 	const actArray = actString.split('=');
 	const act = actArray[1];
-console.log(123)
+
 	try{
 		switch(act) {
 			case 'getAllImg':
@@ -85,7 +85,7 @@ console.log(123)
 				}
 				break;
 
-			case 'saveImg':
+			case '':
 				res.data = await saveImg(files.file);
 				if(res.data) {
 					res.success = true;
