@@ -1,29 +1,57 @@
 const http = require('http');
-
 const Koa = require('koa');
 const { koaBody } = require('koa-body');
 const koaStatic = require('koa-static'); 
 const cors = require('@koa/cors');
 const path = require('path'); 
 const fs = require('fs');;
+const app = new Koa();
+const public = path.join(__dirname, 'src/public/img');
 
 const { getExt, saveToDisc, removeFromDisc } = require('./src/api/images.js');
 const { getListImages, addImgToList,	upgImgToList,	delImgFromList } = require('./src/api/database.js');
 
-const app = new Koa();
-const public = path.join(__dirname, 'src/public/img');
+// app.use(async (ctx, next) => {
+// 	console.log(1)
+//   const origin = ctx.request.get('Origin');
+//   if (!origin) {
+//     return await next();
+//   }
 
-app.use(koaBody({
+//   const headers = { 'Access-Control-Allow-Origin': '*', };
+
+//   if (ctx.request.method !== 'OPTIONS') {
+//     ctx.response.set({...headers});
+//     try {
+//       return await next();
+//     } catch (e) {
+//       e.headers = {...e.headers, ...headers};
+//       throw e;
+//     }
+//   }
+
+//   if (ctx.request.get('Access-Control-Request-Method')) {
+//     ctx.response.set({
+//       ...headers,
+//       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
+//     });
+
+//     if (ctx.request.get('Access-Control-Request-Headers')) {
+//       ctx.response.set('Access-Control-Allow-Headers', ctx.request.get('Access-Control-Request-Headers'));
+//     }
+
+//     ctx.response.status = 204;
+//   }
+// });
+
+app.use(cors())
+app.use(koaStatic(public))
+	.use(koaBody({
 	text: true,
 	urlencoded: true,
 	multipart: true,
 	json: true,
 }))
-	.use(koaStatic(public))
-	.use(cors({
-    origin: "*",
-   }
-  ))
 	.use(async ctx => {
 		try {
 			const resp = await processingRequest(ctx.request.querystring, ctx.request.body, ctx.request.files)
@@ -47,7 +75,7 @@ const processingRequest = async (query, body, files = null) => {
 	const actString = queryArray[0];
 	const actArray = actString.split('=');
 	const act = actArray[1];
-
+console.log(123)
 	try{
 		switch(act) {
 			case 'getAllImg':
@@ -58,7 +86,7 @@ const processingRequest = async (query, body, files = null) => {
 				break;
 
 			case 'saveImg':
-				res.data = await saveImg(files.file, body.name);
+				res.data = await saveImg(files.file);
 				if(res.data) {
 					res.success = true;
 				}
