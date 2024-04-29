@@ -1,8 +1,8 @@
 const fs = require('fs'); 
 const path = require('path');
 const uuid = require('uuid');
-
-const public = path.join(__dirname, './src/public/img');
+const host = 'https://ahj-lesson7-task2-backend-production.up.railway.app';
+const public = path.join(host, __dirname, '../public/img');
 
 
 const getExt = (mimetype) => {
@@ -26,7 +26,7 @@ const saveToDisc = async (img) => {
 		
 		const newName = `${id}.${ext}` 
 		const newPath = path.join(public, newName);
-		const link = path.join('./src/public/img', newName);
+		const link = path.join('../public/img', newName);
 		
 		const readStream = fs.createReadStream(oldPath);
 		const writeStream = fs.createWriteStream(newPath); 
