@@ -111,11 +111,8 @@ const processingRequest = async (query, body, files = null) => {
 				break;
 
 			default:
-							res.data = await saveImg(files.file);
-				if(res.data) {
-					res.success = true;
-				}
-				break;
+				res.success = true;
+				res.body = "Ошибка в запросе"
 		}
 		
 	} catch (err) {
