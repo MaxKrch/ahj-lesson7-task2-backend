@@ -1,9 +1,8 @@
 const fs = require('fs'); 
 const path = require('path');
 const uuid = require('uuid');
-const host = 'https://ahj-lesson7-task2-backend-production.up.railway.app';
-const public = path.join(host, __dirname, '../public/img');
 
+const public = path.join(__dirname, '../public/img');
 
 const getExt = (mimetype) => {
 	const array = mimetype.split('/');
