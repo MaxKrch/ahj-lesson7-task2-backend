@@ -14,7 +14,7 @@ const writeListImgs = async (images) => {
 	try {
 		const imagesJSON = JSON.stringify(images);
 		await fs.writeFile(listImgs, imagesJSON);
-
+		
 	} catch (err) {
 		return "База данных временно недоступна";
 	}
