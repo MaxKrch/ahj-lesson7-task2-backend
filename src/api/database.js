@@ -23,10 +23,10 @@ const writeListImgs = async (images) => {
 const getListImages = async () => {
 	const images = await readListImgs();
 
-	images.forEach(item => {
-		const tempLink = item.link;
-		item.link = path.join(__dirname, tempLink);
-	})
+	// images.forEach(item => {
+	// 	const tempLink = item.link;
+	// 	item.link = path.join(__dirname, tempLink);
+	// })
 
 	return images;
 }
@@ -35,7 +35,7 @@ const addImgToList = async (newImg) => {
 	const images = await readListImgs();
 	
 	images.push(newImg);
-	await writeListImgs(images);
+	writeListImgs(images);
 
 	return newImg;
 }
@@ -45,7 +45,7 @@ const upgImgToList = async (id, newName) => {
 	const img = images.find(item => item.id === id);
 	img.name = newName;
 
-	writeListImgs(images);
+	await writeListImgs(images);
 
 	return img;
 }
@@ -57,7 +57,7 @@ const delImgFromList = async (id) => {
 	const link = img.link;
 	
 	images.splice(indexImg, 1);
-	writeListImgs(images)
+	await writeListImgs(images)
 	return link;
 }
 

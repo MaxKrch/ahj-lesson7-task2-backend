@@ -6,47 +6,14 @@ const cors = require('@koa/cors');
 const path = require('path'); 
 const fs = require('fs');;
 const app = new Koa();
-const public = path.join(__dirname, 'src/public/img');
+const public = path.join(__dirname, '/src/public');
 
 const { getExt, saveToDisc, removeFromDisc } = require('./src/api/images.js');
 const { getListImages, addImgToList,	upgImgToList,	delImgFromList } = require('./src/api/database.js');
 
-// app.use(async (ctx, next) => {
-// 	console.log(1)
-//   const origin = ctx.request.get('Origin');
-//   if (!origin) {
-//     return await next();
-//   }
-
-//   const headers = { 'Access-Control-Allow-Origin': '*', };
-
-//   if (ctx.request.method !== 'OPTIONS') {
-//     ctx.response.set({...headers});
-//     try {
-//       return await next();
-//     } catch (e) {
-//       e.headers = {...e.headers, ...headers};
-//       throw e;
-//     }
-//   }
-
-//   if (ctx.request.get('Access-Control-Request-Method')) {
-//     ctx.response.set({
-//       ...headers,
-//       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
-//     });
-
-//     if (ctx.request.get('Access-Control-Request-Headers')) {
-//       ctx.response.set('Access-Control-Allow-Headers', ctx.request.get('Access-Control-Request-Headers'));
-//     }
-
-//     ctx.response.status = 204;
-//   }
-// });
-
 app.use(cors())
 app.use(koaStatic(public))
-	.use(koaBody({
+app.use(koaBody({
 	text: true,
 	urlencoded: true,
 	multipart: true,
@@ -106,10 +73,6 @@ const processingRequest = async (query, body, files = null) => {
 				}
 				break;
 
-			case 'sortImg':
-				console.log('sor');
-				break;
-
 			default:
 				res.success = true;
 				res.body = "Ошибка в запросе"
@@ -129,9 +92,7 @@ const saveImg = async (img) => {
 
 	const newImg = await saveToDisc(img);
 
-	if(!await addImgToList(newImg)) {
-		return false;
-	}
+	await addImgToList(newImg)
 
 	return newImg;
 }
@@ -147,8 +108,10 @@ const upgImg = async (id, name) => {
 }
 
 const delImg = async (id) => {
+		
+
 	const link = await delImgFromList(id);
-	
+
 	await removeFromDisc(link)
 
 	return id;

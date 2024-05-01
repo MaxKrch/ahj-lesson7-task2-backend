@@ -25,7 +25,7 @@ const saveToDisc = async (img) => {
 		
 		const newName = `${id}.${ext}` 
 		const newPath = path.join(public, newName);
-		const link = path.join('../public/img', newName);
+		const link = path.join('./src/public/img', newName);
 		
 		const readStream = fs.createReadStream(oldPath);
 		const writeStream = fs.createWriteStream(newPath); 
@@ -42,7 +42,9 @@ const saveToDisc = async (img) => {
 }
 
 const removeFromDisc = async (link) => {
-	const newPath = path.join(__dirname, link);
+	const dir = __dirname;
+	const newPath = path.join(dir, `../../${link}`);
+
 	await fs.promises.unlink(newPath)
 }
 
