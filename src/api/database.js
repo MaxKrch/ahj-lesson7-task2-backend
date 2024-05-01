@@ -25,7 +25,7 @@ const getListImages = async () => {
 
 	images.forEach(item => {
 		const tempLink = item.link;
-		item.link = path.join(__dirname, tempLink);
+		item.link = path.join(__dirname, `../../${}tempLink}`);
 	})
 
 	return images;
