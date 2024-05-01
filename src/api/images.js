@@ -25,7 +25,7 @@ const saveToDisc = async (img) => {
 		
 		const newName = `${id}.${ext}` 
 		const newPath = path.join(public, newName);
-		const link = path.join('./src/public/img', newName);
+		const link = path.join('src/public/img', newName);
 		
 		const readStream = fs.createReadStream(oldPath);
 		const writeStream = fs.createWriteStream(newPath); 
