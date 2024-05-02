@@ -112,9 +112,9 @@ const delImg = async (id) => {
 
 	const link = await delImgFromList(id);
 
-	const test = await removeFromDisc(link)
+	await removeFromDisc(link)
 
-	return {id, link, test };
+	return id;
 }
 
 const getImages = async() => {
