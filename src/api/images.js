@@ -2,8 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const uuid = require('uuid');
 
-const public = path.join(__dirname, '../public/img');
-
 const getExt = (mimetype) => {
 	const array = mimetype.split('/');
 	const lastIndex = array.length - 1;
@@ -25,7 +23,7 @@ const saveToDisc = async (img) => {
 		
 		const newName = `${id}.${ext}` 
 		const newPath = path.join(public, newName);
-		const link = path.join('src/public/img', newName);
+		const link = path.join('/img', newName);
 		
 		const readStream = fs.createReadStream(oldPath);
 		const writeStream = fs.createWriteStream(newPath); 
