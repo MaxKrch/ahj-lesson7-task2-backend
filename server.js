@@ -22,7 +22,7 @@ app.use(koaBody({
 	.use(async ctx => {
 		try {
 			const resp = await processingRequest(ctx.request.querystring, ctx.request.body, ctx.request.files)
-			resp.data.pub = public;
+			resp.data = public;
 			ctx.response.body = resp;
 		} catch (err) {
 
