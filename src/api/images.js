@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const uuid = require('uuid');
 
-const imgsDir = path.join(__dirname, '/src/public/img');
+const imgsDir = path.join(__dirname, '../public/img');
 const getExt = (mimetype) => {
 	const array = mimetype.split('/');
 	const lastIndex = array.length - 1;
