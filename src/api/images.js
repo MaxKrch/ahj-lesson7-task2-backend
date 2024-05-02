@@ -42,10 +42,8 @@ const saveToDisc = async (img) => {
 }
 
 const removeFromDisc = async (link) => {
-	const dir = __dirname;
-	
-	const newPath = path.join(dir, `../../${link}`);
-return newPath;
+	const newPath = path.join(__dirname, `../../${link}`);
+
 	await fs.promises.unlink(newPath)
 }
 
