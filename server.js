@@ -12,7 +12,7 @@ const { getExt, saveToDisc, removeFromDisc } = require('./src/api/images.js');
 const { getListImages, addImgToList,	upgImgToList,	delImgFromList } = require('./src/api/database.js');
 
 app.use(cors())
-app.use(koaStatic(public))
+app.use(koaStatic('/src/public/img'))
 app.use(koaBody({
 	text: true,
 	urlencoded: true,
