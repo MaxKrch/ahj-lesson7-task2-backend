@@ -23,10 +23,11 @@ const writeListImgs = async (images) => {
 const getListImages = async () => {
 	const images = await readListImgs();
 
-	images.forEach(item => {
-		const tempLink = item.link;
-		item.link = path.join(__dirname, tempLink);
-	})
+	// images.forEach(item => {
+	// 	const tempLink = item.link;
+	// 	console.log(__dirname)
+	// 	item.link = path.join(__dirname, tempLink);
+	// })
 
 	return images;
 }
