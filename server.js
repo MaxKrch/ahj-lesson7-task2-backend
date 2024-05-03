@@ -6,7 +6,7 @@ const cors = require('@koa/cors');
 const path = require('path'); 
 const fs = require('fs');;
 const app = new Koa();
-const public = path.join(__dirname, '/src/public');
+const public = path.join(__dirname, '/src/public/img');
 
 const { getExt, saveToDisc, removeFromDisc } = require('./src/api/images.js');
 const { getListImages, addImgToList,	upgImgToList,	delImgFromList } = require('./src/api/database.js');
